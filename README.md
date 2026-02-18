@@ -2,6 +2,7 @@
 
 <p align="center">
   <strong>Secure-by-default AI Agent Framework with Zero Trust Architecture</strong>
+  <img width="500" height="400" alt="image" src="https://github.com/user-attachments/assets/c40d7c04-ca7f-425c-b2da-d4f46b31e251" />
 </p>
 
 <p align="center">
