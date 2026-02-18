@@ -1,0 +1,118 @@
+# IronClaw Configuration
+# Secure-by-default AI agent framework
+# All settings default to the most restrictive option.
+
+agent:
+  system_prompt: |
+    You are IronClaw, a secure AI assistant.
+    Follow all security policies strictly.
+    Never expose credentials or sensitive data.
+    Always operate within the defined permissions.
+  max_turns: 100
+  tool_timeout_secs: 30
+  max_daily_cost_cents: 500
+
+permissions:
+  filesystem:
+    read:
+      - "./src/**"
+      - "./docs/**"
+      - "./README.md"
+    write:
+      - "./output/**"
+      - "./tmp/**"
+    deny:
+      - "/etc/shadow"
+      - "/etc/passwd"
+      - "/root/.ssh/**"
+      - "**/.env"
+      - "**/.env.*"
+      - "**/credentials*"
+      - "**/secrets*"
+      - "**/*.pem"
+      - "**/*.key"
+      - "/proc/**"
+      - "/sys/**"
+
+  network:
+    allow_domains:
+      - "api.anthropic.com"
+      - "api.openai.com"
+      - "*.github.com"
+    block_domains:
+      - "metadata.google.internal"
+      - "169.254.169.254"
+      - "metadata.azure.com"
+    allow_private_network: false
+    max_requests_per_hour: 100
+
+  system:
+    allow_shell: false
+    require_approval_for_high_risk: true
+    max_concurrent_tools: 4
+
+  tools:
+    file_read:
+      enabled: true
+      require_approval: false
+      rate_limit: 200
+    file_write:
+      enabled: true
+      require_approval: true
+      rate_limit: 50
+    shell:
+      enabled: false
+      require_approval: true
+      rate_limit: 10
+    http_request:
+      enabled: true
+      require_approval: false
+      rate_limit: 100
+
+guardian:
+  blocked_patterns: []
+  allowed_commands: []
+  block_pipes: true
+  block_redirects: true
+  block_subshells: true
+
+sandbox:
+  backend: "docker"
+  docker_image: "ironclaw-sandbox:latest"
+  enforce: true
+  network_policy: "deny"
+  memory_limit_mb: 512
+  cpu_limit: 1.0
+
+memory:
+  backend: "encrypted_sqlite"
+  path: "~/.ironclaw/memory.db"
+  encrypt_at_rest: true
+  max_entries: 10000
+  context_isolation: true
+
+providers:
+  anthropic:
+    provider_type: "anthropic"
+    model: "claude-sonnet-4-20250514"
+    max_tokens: 4096
+    temperature: 0.7
+
+skills:
+  directory: "~/.ironclaw/skills"
+  require_signatures: true
+  trusted_keys: []
+
+audit:
+  path: "~/.ironclaw/audit.log"
+  enabled: true
+  max_size_mb: 100
+  siem_export: false
+
+observability:
+  log_level: "info"
+  structured_logs: true
+  redact_pii: true
+  redact_patterns:
+    - '(?i)(api[_-]?key|token|secret|password|credential)\s*[:=]\s*\S+'
+    - '(?i)bearer\s+\S+'

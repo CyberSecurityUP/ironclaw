@@ -1,0 +1,128 @@
+[package]
+name = "ironclaw"
+version = "0.2.0"
+edition = "2021"
+authors = ["IronClaw Contributors"]
+license = "Apache-2.0"
+description = "Secure-by-default AI agent framework with Zero Trust architecture"
+repository = "https://github.com/CyberSecurityUP/ironclaw"
+readme = "README.md"
+keywords = ["ai", "agent", "security", "sandbox", "zero-trust"]
+categories = ["command-line-utilities", "api-bindings"]
+rust-version = "1.75"
+
+[dependencies]
+# CLI
+clap = { version = "4.5", features = ["derive"] }
+
+# Async runtime
+tokio = { version = "1", features = ["full"] }
+
+# Web framework
+axum = { version = "0.7", features = ["ws", "multipart", "macros"] }
+tower = "0.5"
+tower-http = { version = "0.6", features = [
+    "cors", "trace", "compression-gzip", "limit", "fs",
+] }
+
+# HTTP client
+reqwest = { version = "0.12", default-features = false, features = [
+    "json", "rustls-tls", "gzip", "stream",
+] }
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+serde_yaml = "0.9"
+toml = "0.8"
+
+# Config directories
+directories = "6.0"
+
+# Logging and tracing
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = [
+    "fmt", "ansi", "env-filter", "json",
+] }
+
+# OpenTelemetry
+tracing-opentelemetry = "0.22"
+opentelemetry = { version = "0.21", features = ["metrics", "trace"] }
+opentelemetry-otlp = "0.14"
+
+# Crypto
+aes-gcm = "0.10"
+sha2 = "0.10"
+hmac = "0.12"
+ed25519-dalek = { version = "2", features = ["rand_core"] }
+rand = "0.8"
+argon2 = "0.5"
+jsonwebtoken = "9"
+hex = "0.4"
+base64 = "0.22"
+
+# Error handling
+anyhow = "1.0"
+thiserror = "2.0"
+
+# UUID
+uuid = { version = "1", features = ["v4"] }
+
+# Async traits
+async-trait = "0.1"
+
+# Time
+chrono = { version = "0.4", features = ["serde"] }
+
+# Regex
+regex = "1"
+
+# Concurrency
+parking_lot = "0.12"
+dashmap = "5"
+
+# Database
+rusqlite = { version = "0.31", features = ["bundled"] }
+
+# Cache
+moka = { version = "0.12", features = ["future"] }
+
+# Rate limiting
+governor = "0.6"
+
+# WebSocket
+tokio-tungstenite = "0.21"
+
+# Streaming (SSE support)
+async-stream = "0.3"
+futures-core = "0.3"
+futures-util = "0.3"
+
+# Hostname detection
+hostname = "0.4"
+
+# Compression
+flate2 = "1"
+lz4_flex = "0.11"
+
+# Interactive TUI (onboarding wizard)
+dialoguer = "0.11"
+
+# Unix signals (tunnel graceful shutdown)
+[target.'cfg(unix)'.dependencies]
+nix = { version = "0.29", features = ["signal"] }
+
+[dev-dependencies]
+tokio-test = "0.4"
+tempfile = "3"
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true
+panic = "abort"
+
+[profile.release-small]
+inherits = "release"
+opt-level = "s"
+lto = "fat"

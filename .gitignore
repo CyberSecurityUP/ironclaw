@@ -1,0 +1,58 @@
+# Build artifacts
+/target/
+**/*.rs.bk
+
+# IDE / Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Environment and secrets
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Project-specific exclusions
+prompt.md
+
+# IronClaw runtime data
+ironclaw.db
+costs.db
+memory.db
+audit.log
+*.log
+
+# Compiled binaries (outside target)
+ironclaw
+ironclaw.exe
+
+# OS files
+.DS_Store
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Desktop.ini
+
+# Temporary files
+/tmp/
+*.tmp
+*.bak
+*.orig
+
+# Coverage / profiling
+*.profraw
+*.gcda
+*.gcno
+lcov.info
+tarpaulin-report.html
+/coverage/
+
+# Cargo lock is committed for binaries (keep it)
+# Cargo.lock
