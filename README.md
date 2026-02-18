@@ -538,6 +538,16 @@ IronClaw draws architectural insights from two open-source projects:
 
 IronClaw is an independent project that restructures and extends concepts from both with a focus on **defense-in-depth security**, **formal RBAC**, and **cryptographic verification**.
 
+## Star History
+
+<a href="https://www.star-history.com/#star-history/star-history&type=date&legend=top-left">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=star-history/star-history&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=star-history/star-history&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=star-history/star-history&type=date&legend=top-left" />
+ </picture>
+</a>
+
 ---
 
 ## Legal Notice
